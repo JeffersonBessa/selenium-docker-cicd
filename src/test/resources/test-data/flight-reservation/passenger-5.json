@@ -1,0 +1,11 @@
+{
+  "firstName": "jefferson",
+  "lastName": "bessa",
+  "email": "jeffersonbessa10@gmail.com",
+  "password": "jeff123",
+  "street": "anatolia street",
+  "city": "joao pessoa",
+  "zip": "58052756",
+  "passengersCount": "4",
+  "expectedPrice": "$2338 USD"
+}
