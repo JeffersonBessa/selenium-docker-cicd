@@ -1,6 +1,5 @@
 package test.tests.flightreservation;
 
-import br.com.jeffersonbessa.pages.BasePage;
 import br.com.jeffersonbessa.pages.flightreservation.FlightConfirmationPage;
 import br.com.jeffersonbessa.pages.flightreservation.FlightsSearchPage;
 import br.com.jeffersonbessa.pages.flightreservation.FlightsSelectionPage;
@@ -12,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import test.BaseTest;
 import test.tests.flightreservation.model.FlightReservationTestData;
+import test.util.Constants;
 import test.util.JsonUtil;
 
 public class FlightReservationTest extends BaseTest {
@@ -27,10 +27,10 @@ public class FlightReservationTest extends BaseTest {
     @Test
     public void userRegistrationTest(){
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.goTo(BasePage.FLIGHT_RESERVATION_URL);
+        registrationPage.goTo(Constants.FLIGHT_RESERVATION_URL);
         Assert.assertTrue(registrationPage.isAt());
         registrationPage.enterUserDetails(testData.firstName(), testData.lastName());
-        registrationPage.enterUserCredentials( testData.email(), testData.password());
+        registrationPage.enterUserCredentials(testData.email(), testData.password());
         registrationPage.enterAddress(testData.street(), testData.city(), testData.zip());
         registrationPage.register();
     }

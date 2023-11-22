@@ -9,6 +9,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import test.BaseTest;
 import test.tests.vendorportal.model.VendorPortalTestData;
+import test.util.Config;
+import test.util.Constants;
 import test.util.JsonUtil;
 
 public class VendorPortalTest extends BaseTest {
@@ -27,8 +29,7 @@ public class VendorPortalTest extends BaseTest {
 
     @Test
     public void loginTest(){
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.goTo(BasePage.VENDOR_PORTAL_URL);
+        loginPage.goTo(Constants.VENDOR_PORTAL_URL);
         Assert.assertTrue(loginPage.isAt());
         loginPage.login(testData.username(), testData.password());
     }

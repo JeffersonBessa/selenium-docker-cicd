@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>br.com.jeffersonbessa</groupId>
     <artifactId>selenium-docker-cicd</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    # Maven Dependencies
     <properties>
         <selenium.java.version>4.11.0</selenium.java.version>
         <logback.version>1.4.8</logback.version>
         <webdriver.manager.version>5.4.0</webdriver.manager.version>
         <testng.version>7.8.0</testng.version>
         <jackson.version>2.12.0</jackson.version>
-        <!-- plugins versions -->
         <maven.compiler.version>3.11.0</maven.compiler.version>
         <maven.dependency.version>3.6.0</maven.dependency.version>
         <maven.jar.version>3.3.0</maven.jar.version>
         <maven.surefire.version>3.1.2</maven.surefire.version>
         <maven.resources.plugin>3.3.1</maven.resources.plugin>
-        <!-- output directory -->
         <package.directory>${project.build.directory}/docker-resources</package.directory>
     </properties>
     <dependencies>
@@ -30,28 +23,23 @@
             <artifactId>selenium-java</artifactId>
             <version>${selenium.java.version}</version>
         </dependency>
-        <!-- logging library -->
-        <!-- https://www.baeldung.com/logback -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
-        <!-- web-driver manager for local testing -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdriver.manager.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- To deserialize json into Java object or vice versa -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Test framework -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -62,7 +50,6 @@
     <build>
         <finalName>selenium-docker</finalName>
         <plugins>
-            <!-- To compile the source code using specific java version. also to force IDE to change the settings -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -71,7 +58,6 @@
                     <release>17</release>
                 </configuration>
             </plugin>
-            <!-- To run the tests using specific parameters, change thread count, testng report output directory etc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -79,15 +65,17 @@
                 <configuration>
                     <systemPropertyVariables>
                         <browser>chrome</browser>
+                        <selenium.grid.enabled>true</selenium.grid.enabled>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <file>test-suite.xml</file>
+<!--                        <file>test-suite.xml</file>-->
+                        <file>src/test/resources/test-suites/vendor-portal.xml</file>
+                        <file>src/test/resources/test-suites/flight-reservation.xml</file>
                     </suiteXmlFiles>
-                    <threadCount>1</threadCount>
+                    <threadCount>2</threadCount>
                     <reportsDirectory>target/test-output</reportsDirectory>
                 </configuration>
             </plugin>
-            <!-- To copy all the dependencies to run our tests as part of "mvn package" -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -107,7 +95,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- To package our page objects, test classes into jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -123,7 +110,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- To copy resources into the output directory -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -149,4 +135,3 @@
         </plugins>
     </build>
 </project>
-
